@@ -86,7 +86,7 @@ switch(choice)
 }
 
 write(newsockd, &answer, sizeof(int));
-if(choise != 5)
+if(choice != 5)
       goto s;
 
 Q: close(newsockd);
