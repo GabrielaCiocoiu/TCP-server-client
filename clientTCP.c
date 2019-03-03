@@ -29,7 +29,7 @@ int main (int argc , char *argv[])
    sockd = socket (AF_INET, SOCK_STREAM, 0);
    if(sockd < 0)
        {
-          error9"Error opening socket.");
+          error("Error opening socket.");
         }
 
    server=gethostbyname(argv[1]);
@@ -40,10 +40,10 @@ int main (int argc , char *argv[])
   
     bzero((char *) &serv_adr , sizeof(serv_adr));
     serv_adr.sin_family = AF_INET;
-    bcopy((char *) server->h_addr , (char *) &serv_adr.sin_addr.s_addr , server->h_length);	
+    serv_adr.sin_addr.s_addr = inet_addr(argv[1]);	
     serv_adr.sin_port = htons (portno);
 
-    if (connect (sockd, (struct sockaddr *) &ser_adr, sizeof(serv_adr)) < 0)
+    if (connect (sockd, (struct sockaddr *) &serv_adr, sizeof(serv_adr)) < 0)
     {
       error("Connection Failed");
     }
@@ -71,7 +71,7 @@ s:bzero(buffer,256);
   scanf("%d", &choice);                              //enter choice
   write(sockd, &choice, sizeof(int));                    //send choice to server
 
-  if(choise == 5)
+  if(choice == 5)
           goto Q;
 
   read(sockd, &answer, sizeof(int));
