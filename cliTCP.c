@@ -31,12 +31,6 @@ int main (int argc , char *argv[])
        {
           error("Error opening socket.");
         }
-
-   server=gethostbyname(argv[1]);
-   if(server == NULL)
-       {
-        fprintf(stderr , "Error , no such host");
-        }
   
     bzero((char *) &serv_adr , sizeof(serv_adr));
     serv_adr.sin_family = AF_INET;
@@ -77,7 +71,7 @@ s:bzero(buffer,256);
   read(sockd, &answer, sizeof(int));
   printf("Server - The answer is: %d\n", answer);
 
-  if(choise != 5)
+  if(choice != 5)
       goto s;
 
   Q:
