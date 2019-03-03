@@ -69,8 +69,9 @@ int main ()
 	  perror ("[server]Eroare la accept().\n");
 	  continue;
 	}
-    newsockfd = accept(sd, (struct sockaddr *) &server, sizeof (struct sockaddr)) == -1);
-if(newsockfd == -1)
+	  
+newsockfd = accept(sd, (struct sockaddr *) &server, sizeof (struct sockaddr));
+if(newsockfd < 0)
 errno("Error on accept");
 
 int num1, num2, answer, choice;
@@ -114,7 +115,7 @@ if(choise != 5)
       goto s;
 
 Q: close(newstockfd);
-   close(client);
-   close(sd);
-    }			
+   close(sd);	  
+   close(client);	  
+  }	  
 }				
