@@ -114,8 +114,8 @@ write(newsockfd, &answer, sizeof(int));
 if(choise != 5)
       goto s;
 
-Q: close(newstockfd);
-   close(sd);	  
-   close(client);	  
+Q: close (newstockfd);
+   close (sd);	  
+   close (client);	  
   }	  
 }				
