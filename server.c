@@ -14,12 +14,11 @@ int main ()
 {
   struct sockaddr_in server;	// structura folosita de server
   struct sockaddr_in from;	
-  char msg[100];		//mesajul primit de la client 
-  char msgrasp[100]=" ";        //mesaj de raspuns pentru client
-  int sd;			//descriptorul de socket 
+  char buffer[255];       //mesaj de raspuns pentru client
+  int sd, newsockfd, n;			//descriptorul de socket 
 
   /* crearea unui socket */
-  if ((sd = socket (AF_INET, SOCK_STREAM, 0)) == -1)
+  if ((sd = socket (AF_INET, SOCK_STREAM, 0)) < 0)
     {
       perror ("[server]Eroare la socket().\n");
       return errno;
@@ -38,38 +37,19 @@ int main ()
     server.sin_port = htons (PORT);
   
   /* atasam socketul */
-  if (bind (sd, (struct sockaddr *) &server, sizeof (struct sockaddr)) == -1)
+  if (bind (sd, (struct sockaddr *) &server, sizeof (server)) < 0)
     {
       perror ("[server]Eroare la bind().\n");
       return errno;
     }
 
   /* punem serverul sa asculte daca vin clienti sa se conecteze */
-  if (listen (sd, 5) == -1)
+  if (listen (sd, 5) < 0)
     {
       perror ("[server]Eroare la listen().\n");
       return errno;
     }
 
-  /* servim in mod iterativ clientii... */
-  while (1)
-    {
-      int client;
-      int length = sizeof (from);
-
-      printf ("[server]Asteptam la portul %d...\n",PORT);
-      fflush (stdout);
-
-      /* acceptam un client (stare blocanta pina la realizarea conexiunii) */
-      client = accept (sd, (struct sockaddr *) &from, &length);
-
-      /* eroare la acceptarea conexiunii de la un client */
-      if (client < 0)
-	{
-	  perror ("[server]Eroare la accept().\n");
-	  continue;
-	}
-	  
 newsockfd = accept(sd, (struct sockaddr *) &server, sizeof (struct sockaddr));
 if(newsockfd < 0)
 errno("Error on accept");
@@ -116,6 +96,5 @@ if(choise != 5)
 
 Q: close (newstockfd);
    close (sd);	  
-   close (client);	  
-  }	  
+  	 	  
 }				
