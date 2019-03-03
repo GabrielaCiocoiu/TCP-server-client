@@ -16,9 +16,10 @@ int port;
 
 int main (int argc, char *argv[])
 {
-  int sd;			// descriptorul de socket
-  struct sockaddr_in server;	// structura folosita pentru conectare 
-  char msg[100];		// mesajul trimis
+  int sd, n;			// descriptorul de socket
+  struct sockaddr_in server;
+  char buffer[256];
+
 
   /* exista toate argumentele in linia de comanda? */
   if (argc != 3)
@@ -46,7 +47,7 @@ int main (int argc, char *argv[])
   server.sin_port = htons (port);
   
   /* ne conectam la server */
-  if (connect (sd, (struct sockaddr *) &server,sizeof (struct sockaddr)) == -1)
+  if (connect (sd, (struct sockaddr *) &server,sizeof (server)) < 0)
     {
       perror ("[client]Eroare la connect().\n");
       return errno;
