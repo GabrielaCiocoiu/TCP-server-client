@@ -28,7 +28,7 @@ int main (int argc , char *argv[])
    sockd = socket (AF_INET, SOCK_STREAM, 0);
    if(sockd < 0)
        {
-          error9"Error opening socket.")
+          error("Error opening socket.");
         }
    
    bzero((char *) &serv_adr , sizeof(serv_adr));
@@ -39,7 +39,7 @@ int main (int argc , char *argv[])
    server.sin_port = htons (portno);
 
    if (bind (sockd, (struct sockaddr *) &serv_adr, sizeof (serv_adr)) < 0)
-         error("Binding failled.")
+         error("Binding failled.");
 
    listen(sockd, 5);
    clilen = sizeof(cl_adr);
